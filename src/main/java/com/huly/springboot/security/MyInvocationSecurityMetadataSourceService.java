@@ -62,6 +62,7 @@ public class MyInvocationSecurityMetadataSourceService implements FilterInvocati
             resUrl = iter.next();
             matcher = new AntPathRequestMatcher(resUrl);
             if(matcher.matches(request)) {
+                logger.warn("匹配的路径需要的角色列表为:" + map.get(resUrl));
                 return map.get(resUrl);
             }
         }

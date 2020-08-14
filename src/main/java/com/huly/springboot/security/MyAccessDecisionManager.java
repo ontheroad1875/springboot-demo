@@ -1,5 +1,7 @@
 package com.huly.springboot.security;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.access.AccessDecisionManager;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.ConfigAttribute;
@@ -12,7 +14,7 @@ import java.util.Collection;
 import java.util.Iterator;
 
 /**
- * TODO
+ * 决策管理器
  *
  * @author huluy
  * @date 2020/8/11 15:34
@@ -20,7 +22,7 @@ import java.util.Iterator;
 
 @Component
 public class MyAccessDecisionManager implements AccessDecisionManager {
-
+    private final Logger logger = LoggerFactory.getLogger(MyAccessDecisionManager.class);
     // decide 方法是判定是否拥有权限的决策方法，
     //authentication 是释CustomUserService中循环添加到 GrantedAuthority 对象中的权限信息集合.
     //object 包含客户端发起的请求的request信息，可转换为 HttpServletRequest request = ((FilterInvocation) object).getHttpRequest();
@@ -38,6 +40,8 @@ public class MyAccessDecisionManager implements AccessDecisionManager {
             needRole = c.getAttribute();
             for(GrantedAuthority ga : authentication.getAuthorities()) {//authentication 为在注释1 中循环添加到 GrantedAuthority 对象中的权限信息集合
                 if(needRole.trim().equals(ga.getAuthority())) {
+                    logger.info("用户请求的权限为：{}", needRole.trim());
+                    logger.info("访问需要的权限为：{}", ga.getAuthority());
                     return;
                 }
             }

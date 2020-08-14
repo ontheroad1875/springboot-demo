@@ -76,7 +76,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .addLogoutHandler(new SecurityContextLogoutHandler());
 
         http.addFilterBefore(myFilterSecurityInterceptor, FilterSecurityInterceptor.class);
-
     }
 
     /**

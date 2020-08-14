@@ -6,6 +6,8 @@ package com.huly.springboot.controller;
  * @author huluy
  * @date 2020/8/11 16:00
  */
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,6 +24,8 @@ public class HomeController {
     }
     @RequestMapping("/login")
     public  String login(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        System.out.println("权限:" + authentication);
         return "login";
     }
     @RequestMapping("/admin")
